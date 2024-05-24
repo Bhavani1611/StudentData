@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StudentGradeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="mst_student">
+    <Key>
+      <PropertyRef Name="Student_key" />
+    </Key>
+    <Property Name="Student_key" Type="Int32" Nullable="false" />
+    <Property Name="Student_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Subject_key" Type="Int32" Nullable="false" />
+    <Property Name="grade" Type="Int32" Nullable="false" />
+    <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="mst_subject" Relationship="Self.FK_mst_student_mst_subject" FromRole="mst_student" ToRole="mst_subject" />
+  </EntityType>
+  <EntityType Name="mst_subject">
+    <Key>
+      <PropertyRef Name="Subject_key" />
+    </Key>
+    <Property Name="Subject_key" Type="Int32" Nullable="false" />
+    <Property Name="subject_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="mst_student" Relationship="Self.FK_mst_student_mst_subject" FromRole="mst_subject" ToRole="mst_student" />
+  </EntityType>
+  <Association Name="FK_mst_student_mst_subject">
+    <End Role="mst_subject" Type="Self.mst_subject" Multiplicity="1" />
+    <End Role="mst_student" Type="Self.mst_student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mst_subject">
+        <PropertyRef Name="Subject_key" />
+      </Principal>
+      <Dependent Role="mst_student">
+        <PropertyRef Name="Subject_key" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StudentGradeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="mst_student" EntityType="Self.mst_student" />
+    <EntitySet Name="mst_subject" EntityType="Self.mst_subject" />
+    <AssociationSet Name="FK_mst_student_mst_subject" Association="Self.FK_mst_student_mst_subject">
+      <End Role="mst_subject" EntitySet="mst_subject" />
+      <End Role="mst_student" EntitySet="mst_student" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

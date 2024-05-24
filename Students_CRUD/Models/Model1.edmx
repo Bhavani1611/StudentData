@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StudentGradeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="mst_student">
+          <Key>
+            <PropertyRef Name="Student key" />
+          </Key>
+          <Property Name="Student key" Type="int" Nullable="false" />
+          <Property Name="Student name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Subject key" Type="int" Nullable="false" />
+          <Property Name="grade" Type="int" Nullable="false" />
+          <Property Name="Remarks" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mst_subject">
+          <Key>
+            <PropertyRef Name="Subject key" />
+          </Key>
+          <Property Name="Subject key" Type="int" Nullable="false" />
+          <Property Name="subject name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_mst_student_mst_subject">
+          <End Role="mst_subject" Type="Self.mst_subject" Multiplicity="1" />
+          <End Role="mst_student" Type="Self.mst_student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mst_subject">
+              <PropertyRef Name="Subject key" />
+            </Principal>
+            <Dependent Role="mst_student">
+              <PropertyRef Name="Subject key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StudentGradeModelStoreContainer">
+          <EntitySet Name="mst_student" EntityType="Self.mst_student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mst_subject" EntityType="Self.mst_subject" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_mst_student_mst_subject" Association="Self.FK_mst_student_mst_subject">
+            <End Role="mst_subject" EntitySet="mst_subject" />
+            <End Role="mst_student" EntitySet="mst_student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StudentGradeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="mst_student">
+          <Key>
+            <PropertyRef Name="Student_key" />
+          </Key>
+          <Property Name="Student_key" Type="Int32" Nullable="false" />
+          <Property Name="Student_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Subject_key" Type="Int32" Nullable="false" />
+          <Property Name="grade" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="mst_subject" Relationship="Self.FK_mst_student_mst_subject" FromRole="mst_student" ToRole="mst_subject" />
+        </EntityType>
+        <EntityType Name="mst_subject">
+          <Key>
+            <PropertyRef Name="Subject_key" />
+          </Key>
+          <Property Name="Subject_key" Type="Int32" Nullable="false" />
+          <Property Name="subject_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="mst_student" Relationship="Self.FK_mst_student_mst_subject" FromRole="mst_subject" ToRole="mst_student" />
+        </EntityType>
+        <Association Name="FK_mst_student_mst_subject">
+          <End Role="mst_subject" Type="Self.mst_subject" Multiplicity="1" />
+          <End Role="mst_student" Type="Self.mst_student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mst_subject">
+              <PropertyRef Name="Subject_key" />
+            </Principal>
+            <Dependent Role="mst_student">
+              <PropertyRef Name="Subject_key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StudentGradeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="mst_student" EntityType="Self.mst_student" />
+          <EntitySet Name="mst_subject" EntityType="Self.mst_subject" />
+          <AssociationSet Name="FK_mst_student_mst_subject" Association="Self.FK_mst_student_mst_subject">
+            <End Role="mst_subject" EntitySet="mst_subject" />
+            <End Role="mst_student" EntitySet="mst_student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StudentGradeModelStoreContainer" CdmEntityContainer="StudentGradeEntities">
+          <EntitySetMapping Name="mst_student">
+            <EntityTypeMapping TypeName="StudentGradeModel.mst_student">
+              <MappingFragment StoreEntitySet="mst_student">
+                <ScalarProperty Name="Student_key" ColumnName="Student key" />
+                <ScalarProperty Name="Student_name" ColumnName="Student name" />
+                <ScalarProperty Name="Subject_key" ColumnName="Subject key" />
+                <ScalarProperty Name="grade" ColumnName="grade" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mst_subject">
+            <EntityTypeMapping TypeName="StudentGradeModel.mst_subject">
+              <MappingFragment StoreEntitySet="mst_subject">
+                <ScalarProperty Name="Subject_key" ColumnName="Subject key" />
+                <ScalarProperty Name="subject_name" ColumnName="subject name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

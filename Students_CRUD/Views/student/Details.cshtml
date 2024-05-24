@@ -1,0 +1,50 @@
+﻿@model Students_CRUD.Models.mst_student
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>mst_student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Student_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.grade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mst_subject.subject_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mst_subject.subject_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Student_key }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

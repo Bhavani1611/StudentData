@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Students_CRUD.Models.mst_student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @using (Html.BeginForm("Index", "student", FormMethod.Get))
+    {
+        <b>Search By:</b>
+        @Html.RadioButton("SearchBy", "Student_name", true)<text> Student_name </text>
+        @Html.RadioButton("SearchBy", "Remarks")<text> Remarks </text>
+        @Html.TextBox("Search", "",htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="search" class="btn btn-info" />
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Student_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mst_subject.subject_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.grade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mst_subject.subject_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Student_key }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Student_key }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Student_key })
+        </td>
+    </tr>
+}
+
+</table>
